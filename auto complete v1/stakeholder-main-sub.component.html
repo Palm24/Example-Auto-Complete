@@ -1,0 +1,49 @@
+<div class="row form-group">
+    <mat-form-field class="col-4"> 
+        <input 
+            type="text" 
+            matInput
+            [formControl]="main.searchCtrl" 
+            [matAutocomplete]="autoMain">
+            <!-- (blur)="!autoMain.isOpen ? emptyIfNotMatch(main): null" -->
+        <mat-autocomplete 
+            #autoMain="matAutocomplete" 
+            autoActiveFirstOption
+            [displayWith]="displayStakeholder"
+            (optionSelected)="mainControl.setValue($event.option.value.uid)"
+            (closed)="autoCompleteClosed(main)">
+          <mat-option *ngFor="let item of main.display$ | async" [value]="item">
+            {{item.desc}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <div class="col-2">
+        <button 
+            mat-mini-fab 
+            class="bg-info" 
+            matTooltip="Add Main" 
+            [disabled]="!main.isNewValid(main)"
+            (click)="onSave(main)"> 
+            <mat-icon>add</mat-icon> 
+        </button>
+    </div>
+
+    <!-- <mat-form-field class="col-4">
+        <input 
+            type="text" 
+            matInput
+            [formControl]="sub.searchCtrl" 
+            [matAutocomplete]="autoSub"
+            (blur)="!autoSub.isOpen ? removeIfNotSelect(sub.searchCtrl, sub.dropdown): null">
+        <mat-autocomplete #autoSub="matAutocomplete" autoActiveFirstOption>
+          <mat-option *ngFor="let item of sub.display$ | async" [value]="item.desc">
+            {{item.desc}}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <div class="col-2">
+        <button mat-mini-fab class="bg-info" matTooltip="Add Sub" (click)="onSave(null)"> 
+            <mat-icon>add</mat-icon> 
+        </button>
+    </div> -->
+</div>

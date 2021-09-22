@@ -1,0 +1,78 @@
+<div class="row form-group">
+    <div class="col-md-6">
+        <div class="row">
+            <mat-form-field class="col-md-8">
+                <input 
+                    type="text" 
+                    matInput
+                    [formControl]="main.searchCtrl" 
+                    [matAutocomplete]="autoMain"
+                    (blur)="!autoMain.isOpen ? emptyIfNotMatch(main): null">
+                <!-- (blur)="!autoMain.isOpen ? emptyIfNotMatch(main): null" -->
+                <mat-autocomplete 
+                    #autoMain="matAutocomplete" 
+                    autoActiveFirstOption
+                    [displayWith]="displayStakeholder"
+                    (optionSelected)="mainControl.setValue($event.option.value.uid)"
+                    (closed)="autoCompleteClosed(main)">
+                     <mat-option *ngFor="let item of main.display$ | async" [value]="item">
+                        {{item.desc}}
+                     </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-slide-toggle class="col-md-2 mt-3" [formControl]="main.isVisible">Create Main</mat-slide-toggle>
+
+            <mat-form-field class="col-10 col-md-8" *ngIf="main.isVisible.value">
+                <input matInput type="text" placeholder="Create main..." [formControl]="main.inputCtrl" >
+            </mat-form-field>
+        
+            <div class="col-2 col-md-2 mt-1" *ngIf="main.isVisible.value">
+                <button class="bg-info" 
+                    mat-mini-fab 
+                    matTooltip="Add Main" 
+                    [disabled]="!main.isNewValid(main)"
+                    (click)="onSave(main)"> 
+                    <mat-icon>add</mat-icon> 
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <mat-form-field class="col-md-8">
+                <input 
+                    type="text" 
+                    matInput
+                    [formControl]="sub.searchCtrl" 
+                    [matAutocomplete]="autoSub"
+                    (blur)="!autoMain.isOpen ? emptyIfNotMatch(main): null"
+                >
+                <mat-autocomplete 
+                    #autoSub="matAutocomplete" 
+                    autoActiveFirstOption
+                    [displayWith]="displayStakeholder"
+                    (optionSelected)="subControl.setValue($event.option.value.uid)"
+                    (closed)="autoCompleteClosed(sub)">
+                     <mat-option *ngFor="let item of sub.display$ | async" [value]="item">
+                        {{item.desc}}
+                     </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-slide-toggle class="col-md-2 mt-3" [formControl]="sub.isVisible">Create Sub</mat-slide-toggle>
+
+            <mat-form-field class="col-10 col-md-8" *ngIf="sub.isVisible.value">
+                <input matInput type="text" placeholder="Create sub..." [formControl]="sub.inputCtrl">
+            </mat-form-field>
+        
+            <div class="col-2 col-md-2 mt-1" *ngIf="sub.isVisible.value">
+                <button class="bg-info" 
+                    mat-mini-fab 
+                    matTooltip="Add Sub" 
+                    [disabled]="!sub.isNewValid(sub)"
+                    (click)="onSave(sub)"> 
+                    <mat-icon>add</mat-icon> 
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
