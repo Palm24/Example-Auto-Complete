@@ -78,38 +78,38 @@ export class StakeholderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.main.display$ = this.service.getHeader().pipe(
-      tap((items: StakeholderItem[]) => (this.main.dropdown = items)),
+      tap((items: StakeholderItem[]) => {
+        this.main.dropdown = items
+        if (this.mainControl.value) {
+          var result = this.main.dropdown.find(m => m.uid === this.mainControl.value)
+          this.main.searchCtrl.setValue(result);
+        }
+      }),
       switchMap(() => this.main.searchCtrl.valueChanges.pipe(
       startWith(""))),
       map((data: string | StakeholderItem) => {
-        if (!this.mainControl) {
-          if (typeof data === "string")
-            return this.filterStakeholder(data, this.main.dropdown);
-          else 
-            return this.filterStakeholder(data.desc, this.main.dropdown);
-        } else {
-          var result = this.main.dropdown.find(a => a.uid === this.mainControl.value)
-          this.main.searchCtrl.setValue(result.desc);
-          console.log(result);
-          console.log(this.main.searchCtrl.value);
-        }
-      })
+        if (typeof data === "string")
+          return this.filterStakeholder(data, this.main.dropdown);
+        else 
+          return this.filterStakeholder(data.desc, this.main.dropdown);
+      }),
     );
 
     this.sub.display$ = this.service.getSub().pipe(
-      tap((items: StakeholderItem[]) => (this.sub.dropdown = items)),
+      tap((items: StakeholderItem[]) => {
+        this.sub.dropdown = items
+        if (this.subControl.value) {
+          var result = this.sub.dropdown.find(s => s.uid === this.subControl.value)
+          this.sub.searchCtrl.setValue(result);
+        }
+      }),
       switchMap(() => this.sub.searchCtrl.valueChanges.pipe(
       startWith(""))),
       map((data: string | StakeholderItem) => {
-        if (!this.subControl) {
-          if (typeof data === "string")
-            return this.filterStakeholder(data, this.sub.dropdown);
-          else 
-            return this.filterStakeholder(data.desc, this.sub.dropdown);
-        } else {
-          var result = this.sub.dropdown.find(a => a.uid === this.subControl.value)
-          this.sub.searchCtrl.setValue(result.desc);
-        }
+        if (typeof data === "string")
+          return this.filterStakeholder(data, this.sub.dropdown);
+        else 
+          return this.filterStakeholder(data.desc, this.sub.dropdown);
       })
     );
 
