@@ -30,7 +30,7 @@ interface StakeholderForm {
 
 const IS_NEW_VALID = (form: StakeholderForm) => {
   let text = null;
-  switch (typeof form.searchCtrl.value) {
+  switch (typeof form.inputCtrl.value) {
     case "string":
       text = form.inputCtrl.value;
       break;
