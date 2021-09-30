@@ -139,10 +139,10 @@ export class StakeholderComponent implements OnInit, OnDestroy {
     
     // console.log(this.main.searchCtrl.value);
     
-    // if (form.searchCtrl.value == "" && form.groupCode == ConstantHelper.StakeholderStatus.Header) 
-    //   this.mainControl.setValue("")
-    //  else if (form.searchCtrl.value == "" && form.groupCode == ConstantHelper.StakeholderStatus.Sub) 
-    //   this.subControl.setValue("")
+    if (form.searchCtrl.value == "" && form.groupCode == ConstantHelper.StakeholderStatus.Header) 
+      this.mainControl.setValue("")
+     else if (form.searchCtrl.value == "" && form.groupCode == ConstantHelper.StakeholderStatus.Sub) 
+      this.subControl.setValue("")
     
     // console.log("mainControl = " + this.mainControl.value);
     // console.log("subControl = " + this.subControl.value);
